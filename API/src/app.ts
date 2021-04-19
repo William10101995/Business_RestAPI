@@ -5,7 +5,7 @@ import config from "./config";
 //Import MiddleWare
 import * as middleware from "./Middlewares/middlewares";
 //Import Routes
-import businessRoutes from "../src/routers/business.routes";
+import tablesRoutes from "./routers/table.routes";
 //Import Database
 import * as db from "./database/database.connection";
 
@@ -22,6 +22,6 @@ db.default.connections();
 app.use(middleware.getMorgan);
 
 //Routers
-app.use(businessRoutes);
+app.use(tablesRoutes);
 
 export default app;
