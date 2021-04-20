@@ -20,6 +20,9 @@ db.default.connections();
 
 //MiddleWares
 app.use(middleware.getMorgan);
+app.use(middleware.serverConnection);
+app.use(middleware.json);
+app.use(middleware.url);
 
 //Routers
 app.use(tablesRoutes);
