@@ -1,5 +1,13 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
+export interface IUser extends Document {
+  firstName: String,
+  lastName: String,
+  dni: Number,
+  email: String,
+  occupation: String,
+  table: any
+} 
 //Schema Users
 //trim clean white
 const usersSchema = new Schema({
@@ -17,11 +25,13 @@ const usersSchema = new Schema({
     type: Number,
     require: true,
     trim: true,
+    unique: true
   },
   email: {
     type: String,
     require: true,
     trim: true,
+    unique: true
   },
   occupation: {
     type: String,
@@ -34,4 +44,4 @@ const usersSchema = new Schema({
   },
 });
 
-module.exports = model("Usuario", usersSchema);
+export default model<IUser>("Usuario", usersSchema);

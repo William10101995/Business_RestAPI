@@ -1,0 +1,17 @@
+@api = http://localhost:4000
+
+### Pedir Mesas
+GET {{api}}/tables
+
+### Pedir Usuarios
+GET  {{api}}/users
+
+
+### Agregar Mesa
+POST {{api}}/tables
+
+### Agregar Usuario a Mesa
+PUT {{api}}/tables/:_id/users
+
+### Eliminar Usuario de Mesa
+PUT 

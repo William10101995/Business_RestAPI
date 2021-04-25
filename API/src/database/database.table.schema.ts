@@ -1,5 +1,10 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
+export interface IUser extends Document {
+  numberTable: Number,
+  quantityChair: Number,
+  users: any
+} 
 //Schema Tables
 //trim clean white
 const tableSchema = new Schema({
@@ -7,6 +12,7 @@ const tableSchema = new Schema({
     type: Number,
     require: true,
     trim: true,
+    unique: true
   },
   quantityChair: {
     type: Number,
@@ -23,4 +29,4 @@ const tableSchema = new Schema({
   },
 });
 
-module.exports = model("Table", tableSchema);
+export default model<IUser>("Table", tableSchema);
