@@ -55,7 +55,7 @@ export const deleteTable: RequestHandler = (req, res) => {
   res.send("Mesa Borrada");
 };
 
-//Obtener Usuarios 
+//Obtener Usuarios
 export const getUsersTables: RequestHandler = async (req, res) => {
   try {
     const users = await Usuario.find({}).populate("table");
@@ -77,18 +77,34 @@ export const createUserTable: RequestHandler = async (req, res) => {
     const userExist = await Usuario.findOne({
       dni: req.body.dni,
     });
+
     if (!userExist) {
-      const newUser = new Usuario(req.body);
-      newUser.table = table;
-      await newUser.save();
-      table.users.push(newUser);
-      await table.save();
-      res.status(200).json(table);
+      try {
+        const newUser = new Usuario(req.body);
+        newUser.table = table;
+        await newUser.save();
+        table.users.push(newUser);
+        await table.save();
+        res.status(200).json(table);
+      } catch (error) {
+        res.status(400).json(error.message);
+      }
     } else {
-      userExist.table = table;
-      table.users.push(userExist);
-      await table.save();
-      res.status(200).json(table);
+      const tableUser = await Table.findOne({
+        users: { $in: userExist._id },
+        _id: tableId,
+      });
+
+      if (tableUser) {
+        res
+          .status(400)
+          .json({ message: `${userExist.firstName} ya esta en la mesa!` });
+      } else {
+        userExist.table = table;
+        table.users.push(userExist);
+        await table.save();
+        res.status(200).json(table);
+      }
     }
   }
 };

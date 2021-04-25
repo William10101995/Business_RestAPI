@@ -25,13 +25,19 @@ const usersSchema = new Schema({
     type: Number,
     require: true,
     trim: true,
-    unique: true
+    unique: true,
+    validate : {
+      validator: function(dni : Number){
+        return dni < 99999999 && dni > 1000000
+      },
+      message: "El DNI no es correcto"
+    }
   },
   email: {
     type: String,
     require: true,
     trim: true,
-    unique: true
+    sparse: true
   },
   occupation: {
     type: String,
