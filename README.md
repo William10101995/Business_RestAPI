@@ -1,2 +1,2 @@
 # Table_RestAPI
-Table Rest API NodeJS, MongoDB and Express
+Management of tables and chairs REST API
